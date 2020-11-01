@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT : true
 
     runs-on: ubuntu-latest
 
@@ -18,8 +20,8 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore --nologo
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal --no-build
