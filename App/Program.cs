@@ -31,12 +31,14 @@ namespace App {
 
         private static void Run(string source) {
             Scanner scanner = new Scanner(_log, source);
-            IEnumerable<Token> tokens = scanner.ScanTokens();
+            IList<Token> tokens = scanner.ScanTokens();
 
-            foreach (Token t in tokens) {
-                _log.Info("Read token {0}", t);
+            Parser parser = new Parser(_log, tokens);
+            Expr? expr = parser.Parse();
+
+            if (expr != null) {
+                Console.WriteLine(new PrettyPrinter().Print(expr));
             }
-
         }
 
         public static void Main(string[] args) {
