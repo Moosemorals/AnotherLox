@@ -7,7 +7,7 @@ using System.Text;
 namespace Lib {
     abstract public class Expr {
 
-        public interface IVistor<T> {
+        public interface IVisitor<T> {
             public T VisitAssignExpr(Assign expr);
             public T VisitBinaryExpr(Binary expr);
             public T VisitGroupingExpr(Grouping expr);
@@ -15,7 +15,7 @@ namespace Lib {
             public T VisitUnaryExpr(Unary expr);
         }
 
-        public abstract T Accept<T>(IVistor<T> visitor);
+        public abstract T Accept<T>(IVisitor<T> visitor);
 
         public class Assign : Expr {
             public Assign(Token name, Expr value) {
@@ -26,7 +26,7 @@ namespace Lib {
             public Token Name {get; }
             public Expr Value {get; }
 
-            public override T Accept<T>(IVistor<T> visitor) => visitor.VisitAssignExpr(this);
+            public override T Accept<T>(IVisitor<T> visitor) => visitor.VisitAssignExpr(this);
         }
 
         public class Binary : Expr {
@@ -36,7 +36,7 @@ namespace Lib {
                 Right = right;
             }
 
-            public override T Accept<T>(IVistor<T> visitor) => visitor.VisitBinaryExpr(this);
+            public override T Accept<T>(IVisitor<T> visitor) => visitor.VisitBinaryExpr(this);
 
             public Expr Left {get; }
             public Token Op {get; }
@@ -46,7 +46,7 @@ namespace Lib {
         public class Grouping : Expr {
             public Grouping(Expr expr) => Expr = expr;
 
-            public override T Accept<T>(IVistor<T> visitor) => visitor.VisitGroupingExpr(this);
+            public override T Accept<T>(IVisitor<T> visitor) => visitor.VisitGroupingExpr(this);
 
             public Expr Expr {get; }
         }
@@ -54,7 +54,7 @@ namespace Lib {
         public class Literal : Expr {
             public Literal(object? value) => Value = value;
 
-            public override T Accept<T>(IVistor<T> visitor) => visitor.VisitLiteralExpr(this);
+            public override T Accept<T>(IVisitor<T> visitor) => visitor.VisitLiteralExpr(this);
 
             public object? Value {get; }
         }
@@ -65,7 +65,7 @@ namespace Lib {
                 Right = right;
             }
 
-            public override T Accept<T>(IVistor<T> visitor) => visitor.VisitUnaryExpr(this);
+            public override T Accept<T>(IVisitor<T> visitor) => visitor.VisitUnaryExpr(this);
 
             public Token Op {get; }
             public Expr Right {get; }

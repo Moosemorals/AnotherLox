@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Lib {
-    public class PrettyPrinter : Expr.IVistor<string> {
+    public class PrettyPrinter : Expr.IVisitor<string> {
 
         public string Print(Expr expr) => expr.Accept(this);
 

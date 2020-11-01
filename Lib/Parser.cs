@@ -27,7 +27,7 @@ namespace Lib {
         private Expr Equality() {
             Expr expr = Comparison();
 
-            while (Match(TokenType.Bang, TokenType.EqualEqual)) {
+            while (Match(TokenType.BangEqual, TokenType.EqualEqual)) {
                 Token op = Previous();
                 Expr right = Comparison();
                 expr = new Expr.Binary(expr, op, right);
